@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="fr-FR">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8" />
+    <title>Wiki du Modpack - Kingdom and Pillage</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2d5016;
+            --secondary: #8b4513;
+            --accent: #d4a574;
+            --dark: #1a1a1a;
+            --light: #f5f1e8;
+            --border: #d4a574;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+            background-attachment: fixed;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, var(--primary) 0%, #1f3a10 100%);
+            border-bottom: 3px solid var(--accent);
+            margin-bottom: 40px;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(212, 165, 116, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(139, 69, 19, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        h1 {
+            color: var(--light);
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            position: relative;
+            z-index: 1;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: var(--accent);
+            font-size: 1.1em;
+            font-style: italic;
+            position: relative;
+            z-index: 1;
+        }
+
+        .toc-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-left: 4px solid var(--accent);
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 4px;
+            backdrop-filter: blur(10px);
+        }
+
+        .toc-section h2 {
+            color: var(--accent);
+            margin-bottom: 15px;
+            font-size: 1.5em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .toc-list {
+            list-style: none;
+            columns: 2;
+            column-gap: 40px;
+        }
+
+        .toc-list li {
+            padding: 8px 0;
+            color: var(--light);
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .toc-list li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        .section {
+            margin: 50px 0;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            border-left: 5px solid var(--secondary);
+            backdrop-filter: blur(10px);
+        }
+
+        .section h2 {
+            color: var(--accent);
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section h2::before {
+            content: '⚔';
+            font-size: 0.9em;
+        }
+
+        .section h3 {
+            color: #c9b896;
+            font-size: 1.3em;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(212, 165, 116, 0.3);
+        }
+
+        .section p {
+            color: var(--light);
+            margin-bottom: 15px;
+            font-size: 1em;
+            line-height: 1.8;
+        }
+
+        ul, ol {
+            margin-left: 30px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            color: var(--light);
+            margin-bottom: 8px;
+        }
+
+        li::marker {
+            color: var(--accent);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: rgba(45, 80, 22, 0.3);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th {
+            background: var(--primary);
+            color: var(--accent);
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid var(--accent);
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid rgba(212, 165, 116, 0.2);
+            color: var(--light);
+        }
+
+        tr:hover {
+            background: rgba(212, 165, 116, 0.1);
+        }
+
+        .progression-list {
+            display: grid;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .progression-item {
+            background: linear-gradient(90deg, rgba(45, 80, 22, 0.4) 0%, transparent 100%);
+            padding: 15px;
+            border-left: 4px solid var(--accent);
+            border-radius: 4px;
+            color: var(--light);
+        }
+
+        .progression-item strong {
+            color: var(--accent);
+        }
+
+        .sources {
+            background: rgba(45, 80, 22, 0.5);
+            padding: 25px;
+            margin: 40px 0;
+            border-radius: 8px;
+            border: 1px solid var(--accent);
+        }
+
+        .sources h3 {
+            color: var(--accent);
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .sources ul {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .sources li {
+            padding: 8px 0;
+            color: var(--light);
+        }
+
+        .sources li::before {
+            content: '📚 ';
+            margin-right: 10px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #888;
+            font-size: 0.9em;
+            margin-top: 50px;
+            border-top: 1px solid rgba(212, 165, 116, 0.2);
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #f5d4a8;
+            text-decoration: underline;
+        }
+
+        .components-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .component-card {
+            background: rgba(45, 80, 22, 0.4);
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 3px solid var(--accent);
+            color: var(--light);
+            text-align: center;
+        }
+
+        .component-card strong {
+            color: var(--accent);
+        }
+
+        @media (max-width: 768px) {
+            .toc-list {
+                columns: 1;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .section {
+                padding: 20px;
+            }
+
+            .components-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>⛏️ Wiki du Modpack</h1>
+            <p class="subtitle">Kingdom and Pillage — Guide unifié des mods</p>
+        </header>
+
+        <div class="toc-section">
+            <h2>📋 Sommaire</h2>
+            <ul class="toc-list">
+                <li>1. Bien débuter</li>
+                <li>2. ParCool</li>
+                <li>3. Create</li>
+                <li>4. Traveler's Backpack</li>
+                <li>5. Waystones</li>
+                <li>6. Alex's Mobs</li>
+                <li>7. Alex's Caves</li>
+                <li>8. Timeless & Classics Zero (TaCZ)</li>
+                <li>9. Synergie entre les mods</li>
+                <li>10. Progression conseillée</li>
+                <li>11. Référence rapide</li>
+            </ul>
+        </div>
+
+        <!-- SECTION 1 -->
+        <div class="section">
+            <h2>Bien débuter</h2>
+            <p>Cette partie rassemble les informations générales nécessaires pour commencer dans le modpack.</p>
+
+            <h3>1.1 Recettes modifiées</h3>
+            <p>Certaines recettes peuvent être modifiées par le modpack. Il faut donc utiliser JEI pour vérifier la recette réellement active dans la partie.</p>
+            <table>
+                <tr>
+                    <th>Objet</th>
+                </tr>
+                <tr>
+                    <td>Bâtons</td>
+                </tr>
+                <tr>
+                    <td>Table de craft</td>
+                </tr>
+                <tr>
+                    <td>Torches</td>
+                </tr>
+                <tr>
+                    <td>Coffre</td>
+                </tr>
+                <tr>
+                    <td>Four</td>
+                </tr>
+                <tr>
+                    <td>Outils en fer</td>
+                </tr>
+                <tr>
+                    <td>Outils en diamant</td>
+                </tr>
+            </table>
+
+            <h3>1.2 Conseils</h3>
+            <ul>
+                <li>Consulter JEI pour toutes les recettes.</li>
+                <li>Activer les Waystones rencontrées.</li>
+                <li>Protéger sa base.</li>
+                <li>Construire rapidement une infrastructure Create.</li>
+                <li>Préparer un Traveler's Backpack avant les grandes explorations.</li>
+                <li>Conserver de la nourriture et des outils de secours.</li>
+            </ul>
+        </div>
+
+        <!-- SECTION 2 -->
+        <div class="section">
+            <h2>ParCool</h2>
+            <p>ParCool est le mod consacré aux mouvements avancés du joueur.</p>
+
+            <h3>2.1 Mobilité</h3>
+            <ul>
+                <li>Escalade</li>
+                <li>Glissade</li>
+                <li>Saut amélioré</li>
+                <li>Mouvements permettant de franchir certains obstacles</li>
+                <li>Techniques de déplacement avancées</li>
+            </ul>
+
+            <h3>2.2 Utilisation</h3>
+            <p>Les différentes techniques de ParCool peuvent être combinées pour améliorer l'exploration et les déplacements.</p>
+
+            <h3>2.3 Conseils</h3>
+            <ul>
+                <li>Apprendre progressivement les mouvements.</li>
+                <li>Utiliser les mouvements pour éviter certains obstacles.</li>
+                <li>Combiner ParCool avec les systèmes de déplacement du modpack.</li>
+            </ul>
+        </div>
+
+        <!-- SECTION 3 -->
+        <div class="section">
+            <h2>Create</h2>
+            <p>Create ajoute un système mécanique permettant de construire des machines et d'automatiser de nombreuses productions.</p>
+
+            <h3>3.1 Premiers composants</h3>
+            <div class="components-grid">
+                <div class="component-card"><strong>Andesite Alloy</strong></div>
+                <div class="component-card"><strong>Andesite Casing</strong></div>
+                <div class="component-card"><strong>Shaft</strong></div>
+                <div class="component-card"><strong>Cogwheel</strong></div>
+                <div class="component-card"><strong>Large Cogwheel</strong></div>
+                <div class="component-card"><strong>Water Wheel</strong></div>
+                <div class="component-card"><strong>Mechanical Press</strong></div>
+                <div class="component-card"><strong>Mechanical Saw</strong></div>
+                <div class="component-card"><strong>Mechanical Belt</strong></div>
+                <div class="component-card"><strong>Engineer's Goggles</strong></div>
+            </div>
+
+            <h3>3.2 Rotation</h3>
+            <p>Les machines de Create utilisent des réseaux de rotation. Les shafts et cogwheels permettent de transmettre cette rotation.</p>
+
+            <h3>3.3 Stress</h3>
+            <p>Create utilise un système de capacité mécanique appelé stress. Une installation doit disposer d'une puissance suffisante pour alimenter toutes ses machines.</p>
+
+            <h3>3.4 Water Wheel</h3>
+            <p>La Water Wheel constitue une source simple de rotation pour commencer une installation mécanique.</p>
+
+            <h3>3.5 Machines principales</h3>
+            <ul>
+                <li><strong>Mechanical Press</strong> — Transformer certains matériaux et progresser dans le mod.</li>
+                <li><strong>Mechanical Saw</strong> — Traiter automatiquement différents matériaux et automatiser les chaînes.</li>
+                <li><strong>Encased Fan</strong> — Différents traitements combinés avec les bons blocs ou fluides.</li>
+                <li><strong>Crushing Wheels</strong> — Broyer de nombreux matériaux.</li>
+                <li><strong>Mechanical Mixer</strong> — Réaliser différentes recettes avec un Basin.</li>
+                <li><strong>Deployer</strong> — Automatiser des interactions du joueur.</li>
+            </ul>
+
+            <h3>3.11 Ponder</h3>
+            <p>Ponder est le système d'aide intégré à Create. Il permet de voir le fonctionnement des blocs grâce à des animations.</p>
+        </div>
+
+        <!-- SECTION 4 -->
+        <div class="section">
+            <h2>Traveler's Backpack</h2>
+            <p>Traveler's Backpack fournit un stockage portable ainsi que plusieurs fonctions supplémentaires.</p>
+
+            <h3>4.1 Stockage</h3>
+            <p>Le sac permet de transporter une quantité importante d'objets pendant les explorations.</p>
+
+            <h3>4.2 Améliorations disponibles</h3>
+            <ul>
+                <li>Crafting Upgrade — Grille de fabrication directement accessible</li>
+                <li>Furnace Upgrade — Cuisson pendant l'exploration</li>
+                <li>Smoker Upgrade — Cuisson rapide</li>
+                <li>Blast Furnace Upgrade — Raffinage des métaux</li>
+                <li>Améliorations de stockage — Augmenter la capacité</li>
+                <li>Améliorations liées aux liquides — Transporter des fluides</li>
+            </ul>
+
+            <h3>4.5 Conseil</h3>
+            <p>Pour une longue expédition, un Traveler's Backpack bien équipé permet de réduire considérablement les problèmes de stockage.</p>
+        </div>
+
+        <!-- SECTION 5 -->
+        <div class="section">
+            <h2>Waystones</h2>
+            <p>Waystones ajoute un système de téléportation entre différents points du monde.</p>
+
+            <h3>Systèmes de téléportation</h3>
+            <ul>
+                <li><strong>Waystone</strong> — Point de destination pour les déplacements rapides</li>
+                <li><strong>Warp Stone</strong> — Accès au système depuis l'inventaire</li>
+                <li><strong>Bound Scroll</strong> — Association à une destination spécifique</li>
+                <li><strong>Warp Plates</strong> — Créer des connexions entre plusieurs plaques</li>
+                <li><strong>Sharestones</strong> — Créer des réseaux de téléportation distincts</li>
+            </ul>
+        </div>
+
+        <!-- SECTION 6 -->
+        <div class="section">
+            <h2>Alex's Mobs</h2>
+            <p>Alex's Mobs ajoute de nombreuses créatures avec des comportements et des utilisations différentes.</p>
+
+            <h3>Créatures principales</h3>
+            <ul>
+                <li><strong>Raccoon</strong> — Créature apprivoisable avec comportements liés à la nourriture</li>
+                <li><strong>Dropbear</strong> — Créature du Nether, attaque depuis les plafonds</li>
+                <li><strong>Rocky Roller</strong> — Créature des Dripstone Caves, attaque en roulant</li>
+            </ul>
+
+            <h3>6.4 Conseils</h3>
+            <ul>
+                <li>Étudier les comportements des nouvelles créatures.</li>
+                <li>Vérifier leurs drops dans JEI.</li>
+                <li>Certaines créatures peuvent avoir des utilisations particulières.</li>
+            </ul>
+        </div>
+
+        <!-- SECTION 7 -->
+        <div class="section">
+            <h2>Alex's Caves</h2>
+            <p>Alex's Caves ajoute six environnements souterrains rares ainsi qu'un système de progression et de recherche.</p>
+
+            <h3>7.1 Les six biomes</h3>
+            <ul>
+                <li><strong>Magnetic Caves</strong> — Phénomènes magnétiques et matériaux de neodymium</li>
+                <li><strong>Primordial Caves</strong> — Créatures et environnements préhistoriques</li>
+                <li><strong>Toxic Caves</strong> — Biome dangereux, toxicité et structures spécialisées</li>
+                <li><strong>Abyssal Chasm</strong> — Très profond, nécessite une bonne préparation</li>
+                <li><strong>Forlorn Hollows</strong> — Biome sombre avec créatures et ressources propres</li>
+                <li><strong>Candy Cavity</strong> — Biome à thème sucré avec ressources uniques</li>
+            </ul>
+
+            <h3>7.2 Progression</h3>
+            <ul>
+                <li><strong>Underground Cabin</strong> — Premier point d'accès</li>
+                <li><strong>Cave Tablets</strong> — Commencer les recherches</li>
+                <li><strong>Spelunkery Table</strong> — Étudier les Cave Tablets</li>
+                <li><strong>Cave Compendium</strong> — Guide de progression et documentation</li>
+                <li><strong>Cave Codex</strong> — Débloquer progressivement les informations</li>
+                <li><strong>Cave Biome Map</strong> — Rechercher le biome associé</li>
+            </ul>
+        </div>
+
+        <!-- SECTION 8 -->
+        <div class="section">
+            <h2>Timeless & Classics Zero (TaCZ)</h2>
+            <p>TaCZ est un mod centré sur les armes à feu, les munitions et les accessoires.</p>
+
+            <h3>8.1 Catégories d'armes</h3>
+            <ul>
+                <li>Pistolets</li>
+                <li>Mitraillettes</li>
+                <li>Fusils d'assaut</li>
+                <li>Fusils à pompe</li>
+                <li>Fusils de précision</li>
+                <li>Armes spécialisées</li>
+            </ul>
+
+            <h3>8.2 Munitions</h3>
+            <p>Chaque arme utilise un type de munition spécifique. Il faut donc vérifier la compatibilité entre l'arme, le chargeur et les munitions.</p>
+
+            <h3>8.3 Accessoires</h3>
+            <ul>
+                <li>Lunettes</li>
+                <li>Viseurs</li>
+                <li>Poignées</li>
+                <li>Bipieds</li>
+                <li>Accessoires de bouche</li>
+            </ul>
+        </div>
+
+        <!-- SECTION 9 -->
+        <div class="section">
+            <h2>Synergie entre les mods</h2>
+
+            <h3>9.1 Create + Traveler's Backpack</h3>
+            <p>Le Backpack permet de transporter les ressources nécessaires aux installations Create pendant les déplacements.</p>
+
+            <h3>9.2 Waystones + Alex's Caves</h3>
+            <p>Les Waystones permettent de sécuriser les longues expéditions vers les différents biomes d'Alex's Caves.</p>
+
+            <h3>9.3 ParCool + exploration</h3>
+            <p>ParCool facilite les déplacements verticaux et le franchissement de certains obstacles rencontrés pendant l'exploration.</p>
+
+            <h3>9.4 TaCZ + exploration</h3>
+            <p>TaCZ fournit des armes à distance utiles lors des explorations dangereuses.</p>
+        </div>
+
+        <!-- SECTION 10 -->
+        <div class="section">
+            <h2>Progression conseillée</h2>
+            <div class="progression-list">
+                <div class="progression-item"><strong>1. Survie</strong> — Nourriture, base, outils et protection</div>
+                <div class="progression-item"><strong>2. Mobilité</strong> — Waystones et ParCool</div>
+                <div class="progression-item"><strong>3. Stockage</strong> — Traveler's Backpack</div>
+                <div class="progression-item"><strong>4. Create</strong> — Premières machines et automatisation</div>
+                <div class="progression-item"><strong>5. Exploration</strong> — Structures et biomes rares</div>
+                <div class="progression-item"><strong>6. Alex's Caves</strong> — Cave Compendium et exploration des six biomes</div>
+                <div class="progression-item"><strong>7. Combat</strong> — Développement d'un équipement TaCZ</div>
+                <div class="progression-item"><strong>8. Automatisation</strong> — Chaînes Create plus complexes</div>
+            </div>
+        </div>
+
+        <!-- SECTION 11 -->
+        <div class="section">
+            <h2>Référence rapide</h2>
+            <table>
+                <tr>
+                    <th>Besoin</th>
+                </tr>
+                <tr>
+                    <td>Stockage portable → Traveler's Backpack</td>
+                </tr>
+                <tr>
+                    <td>Craft portable → Crafting Upgrade</td>
+                </tr>
+                <tr>
+                    <td>Téléportation → Waystone + Warp Stone</td>
+                </tr>
+                <tr>
+                    <td>Téléportation portable → Bound Scroll</td>
+                </tr>
+                <tr>
+                    <td>Mobilité → ParCool</td>
+                </tr>
+                <tr>
+                    <td>Automatisation → Create</td>
+                </tr>
+                <tr>
+                    <td>Nouvelles créatures → Alex's Mobs</td>
+                </tr>
+                <tr>
+                    <td>Biomes souterrains → Alex's Caves</td>
+                </tr>
+                <tr>
+                    <td>Armes à feu → Timeless & Classics Zero</td>
+                </tr>
+                <tr>
+                    <td>Recettes → JEI</td>
+                </tr>
+                <tr>
+                    <td>Aide Create → Ponder</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- SOURCES -->
+        <div class="sources">
+            <h3>📚 Sources et informations</h3>
+            <p>Les informations du modpack doivent être distinguées des informations propres aux mods.</p>
+            <ul>
+                <li><strong>Wiki Arcadia</strong> — Informations spécifiques au serveur/modpack</li>
+                <li><strong>Minecraft Guides</strong> — Traveler's Backpack, Waystones, Alex's Mobs, TaCZ</li>
+                <li><strong>Create Wiki</strong> — Documentation Create</li>
+                <li><strong>Alex's Caves Wiki</strong> — Documentation et progression</li>
+            </ul>
+            <p style="margin-top: 20px; color: #aaa;"><em>⚠️ Les recettes exactes doivent être vérifiées avec JEI dans la version du modpack utilisée, car les recettes peuvent être modifiées par des datapacks ou la configuration du modpack.</em></p>
+        </div>
+
+        <footer>
+            <p>Wiki du Modpack Kingdom and Pillage — Guide unifié</p>
+            <p style="margin-top: 10px; color: #666;">Mise à jour régulière • Consultez JEI pour les recettes actuelles</p>
+        </footer>
+    </div>
+</body>
+
+</html>
